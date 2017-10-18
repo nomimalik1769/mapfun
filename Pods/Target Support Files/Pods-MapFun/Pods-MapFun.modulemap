@@ -1,0 +1,6 @@
+framework module Pods_MapFun {
+  umbrella header "Pods-MapFun-umbrella.h"
+
+  export *
+  module * { export * }
+}
