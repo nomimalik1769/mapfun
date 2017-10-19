@@ -165,7 +165,6 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         
     }
     
-    
     func fitAllMarkers(_path: GMSMutablePath) {
         var bounds = GMSCoordinateBounds()
         for index in 1..._path.count() {
@@ -368,6 +367,31 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let loc = locations[0]
+        print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
+        print("Speed: \(loc.speed)")
+        print("Location altitude: \(loc.altitude)")
+        CLGeocoder().reverseGeocodeLocation(loc) { (placemarks , error ) in
+            if error != nil
+            {
+                print(error!)
+            }
+            else
+            {
+                if let placemark = placemarks?[0]
+                {
+                   // var address = " "
+                    if placemark.subThoroughfare != nil
+                    {
+                         print(placemark.country!)
+                         print(placemark.subThoroughfare!)
+                    }
+                }
+            }
+            
+        }
+        
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         
