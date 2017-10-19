@@ -63,7 +63,7 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         })
 
         let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,longitude: (locationManager.location?.coordinate.longitude)!,zoom: zoomLevel)
-        print(locationManager.location?.coordinate.latitude)
+        
         
         
         
@@ -76,11 +76,14 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         // Add the map to the view, hide it until we've got a location update.
         viewmap.addSubview(mapView)
        // viewmap.isHidden = true
-        let source = locationManager.location
-        let dest = CLLocation(latitude: 33.7079, longitude: 73.0500)
-       // getPolylineRoute(from: source, to: dest)
-        drawPath(startLocation: source!, endLocation: dest)
-        
+        let source = CLLocationCoordinate2DMake((locationManager.location?.coordinate.latitude)!,(locationManager.location?.coordinate.longitude)!)
+        let dest = CLLocationCoordinate2DMake(33.7017, 73.0228)
+        let source1 = locationManager.location
+        let dest1 = CLLocation(latitude: 33.7079, longitude: 73.0500)
+        //getPolylineeRoute(from: source, to: dest)
+        getplacesnearby(source: source1!,dest: dest1,distance: 1000,type: "restaurant")
+        drawPath(startLocation: source1!, endLocation: dest1)
+        addanotation(dest: dest1)
         
         
         
@@ -122,9 +125,10 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
     {
         let origin = "\(startLocation.coordinate.latitude),\(startLocation.coordinate.longitude)"
         let destination = "\(endLocation.coordinate.latitude),\(endLocation.coordinate.longitude)"
+        print(origin)
+        print(destination)
         
-        
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving"
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&sensor=false&mode=driving"
         
         Alamofire.request(url).responseJSON { response in
             
@@ -135,6 +139,7 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
             
             let json = JSON(data: response.data!)
             let routes = json["routes"].arrayValue
+            print(json["routes"])
             
             // print route using Polyline
             for route in routes
@@ -151,6 +156,14 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
     
+    func addanotation(dest: CLLocation)
+    {
+        let drop = GMSMarker()
+        drop.position.latitude = dest.coordinate.latitude
+        drop.position.longitude = dest.coordinate.longitude
+        drop.map = mapView
+        
+    }
     
     
     func fitAllMarkers(_path: GMSMutablePath) {
@@ -165,13 +178,90 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func getplacesnearby(source:CLLocation, dest: CLLocation,distance:Int,type:String)
+    {
+        
+        let latitude = "\(source.coordinate.latitude)"
+        let longitute = "\(source.coordinate.longitude)"
+        
+        let apiKey = "AIzaSyCWIZD_tbTBJlU84nxhLXMKQAt7Ca9JuVI"
+       // var googleURLString = NSString(format:"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=%@&types=%@&sensor=true&key=%@",latitude, longitute, distance, type, apiKey ) as String
+            
+           let url = URL(string: "https://maps.googleapis.com/maps/api/place/search/json?location=\(latitude),\(longitute)&radius=\(distance)&types=\(type)")
+        print(url)
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            
+            DispatchQueue.main.async(execute: {
+                
+                if error != nil
+                {
+                    print("Error")
+                }
+                else
+                {
+                    if let content = data
+                    {
+                        do
+                        {
+                            let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                            
+                            let asd = myJson.value(forKey: "results") as! NSMutableArray
+                            print(asd)
+                        }
+                        catch
+                        {
+                            print(error.localizedDescription)
+                        }
+
+                    }
+                }
+            })
+            
+        }
+        task.resume()
+       
+       
+        }
+       
+    
+    func getPolylineeRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let url = URL(string: "http://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=false&mode=driving")!
+        
+        let task = session.dataTask(with: url, completionHandler: {
+            (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }else{
+                do {
+                    if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]{
+                        print(json["routes"])
+                        let routes = json["routes"] as? [Any]
+                        let overview_polyline = routes?[0] as?[String:Any]
+                        let polyString = overview_polyline?["points"] as?String
+                        
+                        //Call this method to draw path on map
+                        self.showPath(polyStr: polyString!)
+                    }
+                    
+                }catch{
+                    print("error in JSONSerialization")
+                }
+            }
+        })
+        task.resume()
+    }
+    
     
     func getPolylineRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
-        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=driving&key=AIzaSyCgNklvv1d_UhlW82Cna8MckVK6DUwM7m0")!
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=false&mode=driving")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in

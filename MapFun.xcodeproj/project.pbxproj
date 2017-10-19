@@ -14,6 +14,7 @@
 		84FE4B601F95C66B00F5E827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84FE4B5F1F95C66B00F5E827 /* Assets.xcassets */; };
 		84FE4B631F95C66B00F5E827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FE4B611F95C66B00F5E827 /* LaunchScreen.storyboard */; };
 		B008409A1F9600EF0034590F /* maptestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00840991F9600EF0034590F /* maptestViewController.swift */; };
+		B01116861F986E2D00E19732 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B01116851F986E2300E19732 /* GoogleMaps.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		84FE4B621F95C66B00F5E827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84FE4B641F95C66B00F5E827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B00840991F9600EF0034590F /* maptestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maptestViewController.swift; sourceTree = "<group>"; };
+		B01116851F986E2300E19732 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		FA4D9731553D80CD0DC86222 /* Pods-MapFun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapFun.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapFun/Pods-MapFun.release.xcconfig"; sourceTree = "<group>"; };
 		FF7DB24B274F79B677BC44C5 /* Pods-MapFun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapFun.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapFun/Pods-MapFun.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,6 +55,7 @@
 		84FE4B4C1F95C66A00F5E827 = {
 			isa = PBXGroup;
 			children = (
+				B01116841F986E2300E19732 /* Resources */,
 				84FE4B571F95C66A00F5E827 /* MapFun */,
 				84FE4B561F95C66A00F5E827 /* Products */,
 				B804A7DD186481799D545B1C /* Pods */,
@@ -80,6 +83,14 @@
 				84FE4B641F95C66B00F5E827 /* Info.plist */,
 			);
 			path = MapFun;
+			sourceTree = "<group>";
+		};
+		B01116841F986E2300E19732 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B01116851F986E2300E19732 /* GoogleMaps.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		B804A7DD186481799D545B1C /* Pods */ = {
@@ -153,6 +164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01116861F986E2D00E19732 /* GoogleMaps.bundle in Resources */,
 				84FE4B631F95C66B00F5E827 /* LaunchScreen.storyboard in Resources */,
 				84FE4B601F95C66B00F5E827 /* Assets.xcassets in Resources */,
 				84FE4B5E1F95C66A00F5E827 /* Main.storyboard in Resources */,

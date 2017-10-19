@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bbn-jT-axK">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +15,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MapFun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="coF-BO-vcZ">
@@ -38,30 +39,52 @@
             <objects>
                 <viewController id="Bbn-jT-axK" customClass="maptestViewController" customModule="MapFun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tSO-YW-9pH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13q-pm-3Tt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="484"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13q-pm-3Tt" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="332"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="DwB-g8-P8m"/>
+                                    <constraint firstAttribute="width" secondItem="13q-pm-3Tt" secondAttribute="height" multiplier="80:83" id="I7I-3a-6Uw"/>
+                                    <constraint firstAttribute="height" constant="332" id="YUh-42-nVi"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQV-VQ-PX4">
-                                <rect key="frame" x="58" y="556" width="112" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nQV-VQ-PX4">
+                                <rect key="frame" x="36" y="339" width="112" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="Bag-KX-9I0"/>
+                                    <constraint firstAttribute="width" secondItem="nQV-VQ-PX4" secondAttribute="height" multiplier="16:7" id="OOE-N0-ZJa"/>
+                                    <constraint firstAttribute="width" constant="112" id="zhb-I0-fsG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIW-Ju-uzB">
-                                <rect key="frame" x="247" y="556" width="112" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIW-Ju-uzB">
+                                <rect key="frame" x="156" y="339" width="112" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QIW-Ju-uzB" secondAttribute="height" multiplier="16:7" id="JGN-Sb-O6o"/>
+                                    <constraint firstAttribute="width" constant="112" id="Nwa-pQ-U86"/>
+                                    <constraint firstAttribute="height" constant="49" id="hoy-Jm-Ijo"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xcI-Cn-58K" firstAttribute="trailing" secondItem="QIW-Ju-uzB" secondAttribute="trailing" constant="52" id="0ry-Mw-nN8"/>
+                            <constraint firstItem="QIW-Ju-uzB" firstAttribute="leading" secondItem="nQV-VQ-PX4" secondAttribute="trailing" constant="8" id="1oE-C9-ICj"/>
+                            <constraint firstItem="13q-pm-3Tt" firstAttribute="trailing" secondItem="xcI-Cn-58K" secondAttribute="trailing" id="7sJ-Xr-wjW"/>
+                            <constraint firstItem="nQV-VQ-PX4" firstAttribute="top" secondItem="13q-pm-3Tt" secondAttribute="bottom" constant="7" id="8Lr-IH-eAd"/>
+                            <constraint firstItem="nQV-VQ-PX4" firstAttribute="leading" secondItem="xcI-Cn-58K" secondAttribute="leading" constant="36" id="8W8-pu-rhN"/>
+                            <constraint firstItem="13q-pm-3Tt" firstAttribute="leading" secondItem="xcI-Cn-58K" secondAttribute="leading" id="SJk-VL-AZM"/>
+                            <constraint firstItem="QIW-Ju-uzB" firstAttribute="top" secondItem="13q-pm-3Tt" secondAttribute="bottom" constant="7" id="fob-fD-mwM"/>
+                            <constraint firstItem="13q-pm-3Tt" firstAttribute="top" secondItem="tSO-YW-9pH" secondAttribute="top" id="wuA-3s-bGu"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xcI-Cn-58K"/>
                     </view>
                     <connections>
@@ -72,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12c-i6-KrD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565.60000000000002" y="117.39130434782609"/>
+            <point key="canvasLocation" x="564.375" y="117.25352112676056"/>
         </scene>
     </scenes>
 </document>
