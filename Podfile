@@ -7,6 +7,7 @@ target 'MapFun' do
 
 	 pod 'GoogleMaps'
 	 pod 'GooglePlaces'
+     pod 'GooglePlacePicker'
 	pod 'Alamofire'
     pod 'SwiftyJSON'
 

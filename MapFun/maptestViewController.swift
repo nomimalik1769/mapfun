@@ -11,15 +11,16 @@ import GooglePlaces
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
+import GooglePlacePicker
 
-class maptestViewController: UIViewController,CLLocationManagerDelegate {
+class maptestViewController: UIViewController,CLLocationManagerDelegate{
 
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var likelyPlaces: [GMSPlace] = []
-    
+    var placePicker: GMSPlacePicker!
     // The currently selected place.
     var selectedPlace: GMSPlace?
 
@@ -55,6 +56,7 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
+                    
                     self.name.text = place.name
                     self.add.text = place.formattedAddress?.components(separatedBy: ", ")
                         .joined(separator: "\n")
@@ -86,6 +88,35 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         addanotation(dest: dest1)
         
         
+        
+        
+        // 1
+        let center = CLLocationCoordinate2DMake((source1?.coordinate.latitude)!, (source1?.coordinate.longitude)!)
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        self.placePicker = GMSPlacePicker(config: config)
+
+        // 2
+        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
+
+            if let error = error {
+                print("Error occurred: \(error.localizedDescription)")
+                return
+            }
+            // 3
+            if let place = place {
+                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+                let marker = GMSMarker(position: coordinates)
+                marker.title = place.name
+                marker.map = self.mapView
+                self.mapView.animate(toLocation: coordinates)
+            } else {
+                print("No place was selected")
+            }
+        }
+
         
 //        let marker = GMSMarker()
 //        marker.position = CLLocationCoordinate2DMake(33.7079, 73.0500)
@@ -120,6 +151,8 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
         // Do any additional setup after loading the view.
     }
 
+    
+    
     
     func drawPath(startLocation: CLLocation, endLocation: CLLocation)
     {
@@ -433,6 +466,15 @@ class maptestViewController: UIViewController,CLLocationManagerDelegate {
                 }
             }
         })
+    }
+    
+    
+    
+
+    
+    func locationManager(manager: CLLocationManager,didFailWithError error: NSError){
+        
+        print("An error occurred while tracking location changes : \(error.description)")
     }
 
     
